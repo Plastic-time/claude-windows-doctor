@@ -4,7 +4,10 @@ All notable changes to claude-windows-doctor are written here. The format follow
 
 ## [Unreleased]
 
-- Let `explain` accept a part of a finding id when it matches exactly one id.
+## [1.2.0] - 2026-10-18
+
+- `explain` takes a part of a finding id when exactly one id contains it: `explain long` prints `long-paths`, `explain distro` prints `wsl-no-distro`. A whole id still wins, and a part that several ids contain is refused like an unknown id, with the nearest ids (`explain git-bash` names the four). `--json` is unchanged: the page's `id` is the full id.
+- Contributed by [@Doomguy-BFG9000](https://github.com/Doomguy-BFG9000) in [#4](https://github.com/nrzz/claude-windows-doctor/pull/4), for the good first issue [#3](https://github.com/nrzz/claude-windows-doctor/issues/3).
 
 ## [1.1.0] - 2026-10-17
 
@@ -23,7 +26,8 @@ All notable changes to claude-windows-doctor are written here. The format follow
 - What Claude Code does is what the real binary did: `test/shell-table.mjs` holds 129 cases (fake Git trees, PATH orders, spellings of the two variables, settings files, deny rules, `defaultShell`) that were put to Claude Code 2.1.295 and 2.1.299 on Windows 11 and, in CI, to the newest release (2.1.301) on `windows-latest`, and the same table is held against the prediction on a pretend Windows machine on every system. Git Bash is looked for in `CLAUDE_CODE_GIT_BASH_PATH`, then `C:\Program Files\Git` and `C:\Program Files (x86)\Git`, then two folders up from the first `git.exe` that `where.exe` prints; a variable that points at a missing file is ignored and the search goes on.
 - Zero tokens for the tool. The skill is user-only, adds nothing to a request that does not use it, and hands the model a report of at most 12 findings.
 
+[1.2.0]: https://github.com/nrzz/claude-windows-doctor/releases/tag/v1.2.0
 [1.1.0]: https://github.com/nrzz/claude-windows-doctor/releases/tag/v1.1.0
 [1.0.0]: https://github.com/nrzz/claude-windows-doctor/releases/tag/v1.0.0
 
-[Unreleased]: https://github.com/nrzz/claude-windows-doctor/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/nrzz/claude-windows-doctor/compare/v1.2.0...HEAD
